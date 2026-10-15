@@ -6,6 +6,9 @@ import { Rich } from "@/components/Rich";
 import { caseStudies } from "@/content/projects";
 import { caseStudyIsPublic, getProject, projects } from "@/data/projects";
 
+// Only the four projects exist; anything else is a real 404.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }

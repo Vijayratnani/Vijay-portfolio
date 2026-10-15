@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { posts, visiblePosts } from "@/content/writing";
 
 // Every slug is prerendered; drafts call notFound() in production.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }

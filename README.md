@@ -17,4 +17,4 @@ npm run test:e2e    # browser tests (Playwright), after npm run build
 - Content lives in `src/data/`. Edit the facts there, not in components.
 - Put the resume at `public/Vijay_Kumar.pdf`.
 - Set `NEXT_PUBLIC_SITE_URL` in Vercel once the domain is live.
-- The full build plan is in `Portfolio_Plan_Vijay_Kumar.md`.
+- `GITHUB_PAGES=true npm run build` writes a static export to `out/` for GitHub Pages (`.github/workflows/pages.yml` deploys it).

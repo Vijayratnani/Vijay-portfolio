@@ -70,8 +70,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <RevealObserver />
         <CursorEffects />
-        {/* Page views only; collects nothing until deployed on Vercel. */}
-        <Analytics />
+        {/* Page views only, and only on Vercel (elsewhere its script would 404). */}
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

@@ -16,10 +16,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The unit tests encode the content rules below: exactly 4 projects, each with a case study; evidence slugs and labels match the projects; no phone number in `src/`; one company spelling; unapproved client write-ups stay out of production; every theme color pair passes WCAG AA, read straight from `globals.css`. If one fails, fix the content, not the test.
 
-## Next.js 16 gotchas (Cache Components is on by default)
+## Deployment and Next.js 16 notes
 
-- Route segment config such as `dynamicParams` is rejected at build time. Unknown `/projects/[slug]` values go through `notFound()`, which streams a 404 page with `noindex` but returns HTTP 200.
-- `new Date()` and other non-deterministic values in prerendered components fail the build. Wrap them in `"use cache"` (see `src/components/Footer.tsx`).
+- Live on GitHub Pages at https://vijayratnani.github.io/Vijay-portfolio/ via `.github/workflows/pages.yml`. That workflow runs `GITHUB_PAGES=true npm run build`, which switches `next.config.ts` to `output: "export"` with `basePath: "/Vijay-portfolio"` and `trailingSlash`, then runs `scripts/flatten-export-prefetch.mjs` (Next 16.4 writes dynamic-route prefetch files nested, but the client requests them flat). The repo's Pages source must be "GitHub Actions". Without `GITHUB_PAGES` it's a normal server build (local dev, e2e tests, Vercel).
+- Everything must stay statically exportable: no cookies/headers, Server Actions, route handlers that read the request, rewrites/redirects, or image optimization. Dynamic routes need `generateStaticParams` and `dynamicParams = false`.
+- Cache Components is deliberately **off**. Static export needs `export const dynamic = "force-static"` on metadata routes (sitemap, robots, opengraph-image), which Cache Components rejects.
+- Plain `<a href>` doesn't get `basePath`; use `next/link` or prefix with `process.env.NEXT_PUBLIC_BASE_PATH` (see `profile.resumePdf`). Vercel Analytics renders only when `process.env.VERCEL` is set.
 - `LayoutProps<"/...">` and `PageProps<"/...">` are global generated types; you don't import them.
 
 ## Architecture

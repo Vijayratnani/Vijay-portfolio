@@ -3,6 +3,9 @@ import { siteUrl } from "@/data/profile";
 import { posts } from "@/content/writing";
 import { projects } from "@/data/projects";
 
+// Required for the static export used on GitHub Pages.
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const published = posts.filter((p) => p.status === "published");
   return [

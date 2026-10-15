@@ -1,6 +1,9 @@
 import { ImageResponse } from "next/og";
 import { metrics, profile } from "@/data/profile";
 
+// Required for the static export used on GitHub Pages.
+export const dynamic = "force-static";
+
 export const alt = `${profile.name} — ${profile.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

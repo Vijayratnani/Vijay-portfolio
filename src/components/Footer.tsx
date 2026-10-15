@@ -7,9 +7,8 @@ const colophon =
 // "column": the same colophon at the end of the home page's right column on
 // desktop, so the sticky sidebar's container reaches the page bottom and the
 // sidebar never gets pushed up. CSS hides the site footer when this one shows.
-// Cached at build time; the year refreshes on each deploy.
-export async function Footer({ variant = "site" }: { variant?: "site" | "column" }) {
-  "use cache";
+// Pages are prerendered, so the year is fixed at build time and refreshes on each deploy.
+export function Footer({ variant = "site" }: { variant?: "site" | "column" }) {
   const year = new Date().getFullYear();
 
   if (variant === "column") {

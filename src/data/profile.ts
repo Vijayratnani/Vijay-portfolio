@@ -14,8 +14,8 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/vijay-kumar-virtuosoft",
   // TODO(plan §5.1): add the exact GitHub profile URL. Links are hidden while null.
   github: null as string | null,
-  // Drop the PDF at public/Vijay_Kumar.pdf.
-  resumePdf: "/Vijay_Kumar.pdf",
+  // Drop the PDF at public/Vijay_Kumar.pdf. Plain <a> links don't get basePath, so add it here.
+  resumePdf: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Vijay_Kumar.pdf`,
 };
 
 // From the LinkedIn About (plan §5.3), lightly trimmed. Supports **bold** via <Rich>.
