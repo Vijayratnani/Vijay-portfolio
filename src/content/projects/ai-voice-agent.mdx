@@ -1,0 +1,65 @@
+import { Draft, Pending, Pipeline, Results } from "@/components/case-study";
+import { LatencyDemo } from "@/components/LatencyDemo";
+
+## Context
+
+Built at VirtuoSoft as Full-Stack & AI Engineer (Aug 2025 – Jun 2026).
+
+<Pending>Team size, Vijay's exact role on this project, and how long it took.</Pending>
+
+## The problem
+
+Voice conversations feel broken when replies take ~2s. Callers start talking over the bot, and the conversation falls apart.
+
+<Draft title="Constraints">
+  The latency target, telephony limits (e.g. Twilio's audio format), cost per call, and anything else that ruled options out.
+</Draft>
+
+## Architecture
+
+The core change: **stream at every hop instead of waiting for whole turns.** Speech is transcribed as it arrives, a fast inference provider generates the reply, and synthesized speech streams back as it is produced.
+
+<Pipeline
+  steps={[
+    { name: "Twilio", detail: "phone call in" },
+    { name: "Deepgram", detail: "streaming STT" },
+    { name: "Groq / OpenAI", detail: "LLM reasoning" },
+    { name: "ElevenLabs", detail: "streaming TTS" },
+    { name: "Twilio", detail: "reply out" },
+  ]}
+/>
+
+On top of the pipeline, the agent handles:
+
+- **Interruptions (barge-in):** the caller can talk over the bot.
+- **Intent classification** to work out what the caller wants.
+- **Multi-stage conversations** across several turns.
+
+<Pending>Confirm: does a FastAPI service orchestrate the stages, and does Twilio carry the audio both ways? Add a sequence diagram showing where streaming hops overlap and how barge-in stops playback.</Pending>
+
+## Key decisions
+
+- **A provider per stage, not one vendor:** Deepgram for speech-to-text, Groq or OpenAI for reasoning, and ElevenLabs for speech.
+- **Groq for fast inference** on the reasoning step, where latency counts on every turn.
+
+<Pending>For each decision: the option that was rejected and why, e.g. what Groq replaced and when OpenAI is used instead.</Pending>
+
+<Draft title="Challenges & fixes">
+  The hardest bottleneck or bug on the way from ~2s to under 600ms, how it was found, and how it was fixed.
+</Draft>
+
+<Draft title="How it was tested">
+  How the agent was tested: automated tests, call simulations, load, or manual QA.
+</Draft>
+
+## Results
+
+<Results items={[{ label: "end-to-end response latency", before: "~2s", after: "<600ms" }]} />
+
+<LatencyDemo />
+
+<Pending>How latency was measured: start and end points, p50/p95, number of calls. Plus links to the demo video and the GitHub repo.</Pending>
+
+<Draft title="What I'd do next">
+  One or two concrete next steps, e.g. what would push latency lower or make the agent more robust.
+</Draft>

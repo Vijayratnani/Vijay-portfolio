@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* Dark is the default: <html> ships with .dark and an inline script removes it for saved "light". */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* "Studio Ink": warm paper / graphite with a signal-orange accent (a recording light, for
+   the voice-AI work). Every text pairing below passes WCAG AA; re-check if you change one. */
+:root {
+  --bg: #f6f2eb;
+  --fg: #1b1915;
+  --muted: #5f584e;
+  --card: #fffdf9;
+  --border: #e3ddd2;
+  --accent: #c2410c;
+  --accent-fg: #ffffff;
+}
+
+.dark {
+  --bg: #12110f;
+  --fg: #ece6dc;
+  --muted: #a39b8f;
+  --card: #1b1a17;
+  --border: #2d2a25;
+  --accent: #ff6a3d;
+  --accent-fg: #12110f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  /* Serif for the name and headings, grotesk for reading, mono only for numbers and dates. */
+  --font-serif: var(--font-instrument-serif);
+  --font-sans: var(--font-hanken-grotesk);
+  --font-mono: var(--font-plex-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* One visible keyboard focus style for every interactive element. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* The "recording" dot on the availability pill. */
+@keyframes rec {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rec-dot {
+    animation: rec 2.4s ease-in-out infinite;
+  }
+}
+
+/* Scroll reveal (src/components/RevealObserver.tsx). Only hides content once the
+   inline script has added .js, and never under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+
+  .js [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* Cursor shape: an accent arrow, plus a variant with a sparkle over links and buttons.
+   SVGs are inlined because cursor images can't read CSS variables, so each theme has its own. */
+@media (pointer: fine) {
+  html {
+    cursor:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M4 3v17.5l4.6-4.3 3 6.6 2.9-1.3-3-6.5h6.3z' fill='%23c2410c' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+        4 3,
+      auto;
+  }
+
+  html :is(a, button, summary, label, [role="button"]) {
+    cursor:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M4 3v17.5l4.6-4.3 3 6.6 2.9-1.3-3-6.5h6.3z' fill='%23c2410c' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M20 2l1 3 3 1-3 1-1 3-1-3-3-1 3-1z' fill='%23c2410c'/%3E%3C/svg%3E")
+        4 3,
+      pointer;
+  }
+
+  html.dark {
+    cursor:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M4 3v17.5l4.6-4.3 3 6.6 2.9-1.3-3-6.5h6.3z' fill='%23ff6a3d' stroke='%2312110f' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+        4 3,
+      auto;
+  }
+
+  html.dark :is(a, button, summary, label, [role="button"]) {
+    cursor:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M4 3v17.5l4.6-4.3 3 6.6 2.9-1.3-3-6.5h6.3z' fill='%23ff6a3d' stroke='%2312110f' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M20 2l1 3 3 1-3 1-1 3-1-3-3-1 3-1z' fill='%23ff6a3d'/%3E%3C/svg%3E")
+        4 3,
+      pointer;
+  }
+
+  html :is(input, textarea) {
+    cursor: text;
+  }
+}
+
+/* Pointer-reactive background (src/components/CursorEffects.tsx). JS sets --x/--y,
+   --h (hue, warm orange → amber) and --energy (0–1, from pointer speed). Kept soft. */
+.cursor-bg {
+  --glow-l: 50%;
+  --glow-a: 0.05;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s;
+  background:
+    radial-gradient(
+      calc(420px + var(--energy, 0) * 160px) circle at var(--x, 50%) var(--y, 30%),
+      hsl(var(--h, 18) 85% var(--glow-l) / calc(var(--glow-a) + var(--energy, 0) * 0.06)),
+      transparent 70%
+    ),
+    radial-gradient(
+      1100px circle at calc(100% - var(--x, 50%)) calc(100% - var(--y, 30%)),
+      hsl(calc(var(--h, 18) + 22) 70% var(--glow-l) / calc(var(--glow-a) * 0.6)),
+      transparent 70%
+    );
+}
+
+.dark .cursor-bg {
+  --glow-l: 58%;
+  --glow-a: 0.07;
+}
+
+.cursor-bg[data-active] {
+  opacity: 1;
+}
+
+/* On the desktop home page the sticky sidebar carries section nav, so the
+   header's duplicate links hide (they stay on case-study pages). */
+@media (min-width: 64rem) {
+  body:has([data-home-sidebar]) [data-header-link] {
+    display: none;
+  }
+
+  /* The colophon moves into the right column (Footer variant="column"). */
+  body:has([data-home-sidebar]) [data-site-footer] {
+    display: none;
+  }
+}
+
+/* Short desktop screens: compact the sticky sidebar so it fits the viewport
+   (it scrolls internally, without a scrollbar, as a last resort). */
+@media (min-width: 64rem) and (max-height: 820px) {
+  [data-home-sidebar] {
+    padding-block: 2rem;
+  }
+
+  [data-home-sidebar] [data-compact-hide] {
+    display: none;
+  }
+
+  [data-home-sidebar] [data-compact-tight] {
+    margin-top: 1.5rem;
+  }
+
+  [data-home-sidebar] nav a {
+    padding-block: 0.375rem;
+  }
+}
+
+/* Too short for any sticky sidebar: let it scroll with the page instead. */
+@media (min-width: 64rem) and (max-height: 680px) {
+  [data-home-sidebar] {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+}

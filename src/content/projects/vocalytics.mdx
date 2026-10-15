@@ -1,0 +1,64 @@
+import { Draft, Pending, Pipeline, Results } from "@/components/case-study";
+
+## Context
+
+Built at VirtuoSoft as Full-Stack & AI Engineer (Aug 2025 – Jun 2026).
+
+<Pending>Team size, Vijay's exact role on this project, how long it took, and the scale (calls processed per day or in total).</Pending>
+
+## The problem
+
+Call recordings hold real insight, but **manual review doesn't scale**, and **speaker attribution was inaccurate**: it was hard to tell reliably who said what.
+
+<Draft title="Constraints">
+  Privacy rules for call audio, hardware or cost limits, the volume of calls to process, and turnaround expectations.
+</Draft>
+
+## Architecture
+
+A **multi-stage AI pipeline** turns each recording into structured insight in the database:
+
+<Pipeline
+  steps={[
+    { name: "Transcription", detail: "Whisper" },
+    { name: "Diarization", detail: "stereo-channel energy" },
+    { name: "Sentiment", detail: "per call" },
+    { name: "Topics & insights", detail: "extraction" },
+    { name: "Ingestion", detail: "PostgreSQL" },
+  ]}
+  caption="FastAPI backend · Next.js dashboard · local LLMs (Mistral, Llama, Qwen) served through Ollama"
+/>
+
+Around the pipeline:
+
+- **Real-time monitoring dashboards** with ETA tracking, stage-level progress, and operational controls.
+- **Security:** JWT auth, RBAC, audit logging, and automated password-reset workflows.
+
+<Pending>Which stages use the local LLMs? Add a dashboard screenshot with dummy data and a GIF of stage progress.</Pending>
+
+## Key decisions
+
+- **Local LLMs via Ollama instead of cloud APIs,** for privacy and cost.
+- **Stereo-channel energy as a diarization signal,** combined with model tuning and pipeline improvements.
+
+<Pending>Why the stereo-channel approach works for these recordings (one party per channel?), and what was tried before it.</Pending>
+
+<Draft title="Challenges & fixes">
+  The hardest problem in getting diarization to ~95%, or in keeping the pipeline reliable, and how it was solved.
+</Draft>
+
+## How it was tested
+
+**Automated test suites** cover the frontend, the backend, and the AI pipeline itself.
+
+<Pending>What the pipeline tests check (fixtures, accuracy thresholds?) and whether they run in CI.</Pending>
+
+## Results
+
+<Results items={[{ label: "speaker-diarization accuracy", after: "~95%" }]} />
+
+<Pending>Accuracy before the changes, the test set and metric behind ~95%, and a link to the GitHub repo.</Pending>
+
+<Draft title="What I'd do next">
+  One or two concrete next steps for the pipeline or the product.
+</Draft>

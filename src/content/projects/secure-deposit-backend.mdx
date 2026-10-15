@@ -1,0 +1,64 @@
+import { Draft, Pending, Pipeline } from "@/components/case-study";
+
+{/* Client work. Keep the client unnamed: no internal code, hostnames, endpoints, or real
+    screenshots. This page only renders in production once `signoff` is "approved" in
+    src/data/projects.ts. */}
+
+## Context
+
+Built at eDimensionz as Software Engineer II (Jun 2026 – present) for a client in a regulated industry.
+
+<Pending>Team size and Vijay's exact role and scope on this project.</Pending>
+
+## The problem
+
+Deposits arrive through **multiple messaging channels with different payload formats**, the client operates under **strict security requirements**, and the same service must run on **two deployment targets, cloud and on-premise**, from one codebase.
+
+<Draft title="Constraints">
+  Regulatory or audit requirements, network segmentation rules, the on-prem environment's limits, and anything else that ruled options out. Keep it generic enough to protect the client.
+</Draft>
+
+## Architecture
+
+<Pipeline
+  steps={[
+    { name: "Messaging channels", detail: "WhatsApp and others" },
+    { name: "Channel adapters", detail: "one per channel" },
+    { name: "Session API", detail: "shared state machine" },
+    { name: "Deposit services", detail: "FastAPI · SQLAlchemy" },
+    { name: "Database", detail: "PostgreSQL or MS SQL Server" },
+  ]}
+  caption="Generic architecture. No client systems are shown."
+/>
+
+- **A stateful conversational session API** turns every channel's messages into one shared state machine for the deposit workflow.
+- **Deposit-lifecycle REST APIs**, including customer lookup with fallback to an external system.
+- **Request-security middleware** for externally exposed integration endpoints, in a network-segmented deployment.
+- **Packaging and deployment automation**, including automated certificate provisioning for an installation-free setup.
+
+## Security
+
+End-to-end authentication and account security: **JWT auth**, **password policy and history enforcement**, a **custom CAPTCHA service**, and **rate-limited OTP verification**.
+
+## Key decisions
+
+- **One shared state machine for every channel**, instead of a separate flow per channel.
+- **Dual-database support (PostgreSQL and MS SQL Server)**, so the same backend service runs on both cloud and on-premise targets.
+
+<Pending>Why one state machine beat per-channel flows, and what the dual-database support cost (ORM limits, migrations, testing both).</Pending>
+
+<Draft title="Challenges & fixes">
+  The hardest problem, e.g. keeping session state consistent across channels or making certificate provisioning install-free, and how it was solved.
+</Draft>
+
+<Draft title="How it was tested">
+  How the service is tested across both databases and both deployment targets.
+</Draft>
+
+<Draft title="Results">
+  What changed for the client, without confidential figures: channels supported, deployment time, incidents avoided, and so on.
+</Draft>
+
+<Draft title="What I'd do next">
+  One or two concrete next steps.
+</Draft>

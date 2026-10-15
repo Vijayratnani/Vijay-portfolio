@@ -1,1 +1,20 @@
-# Vijay-portfolio
+# Vijay Kumar — Portfolio
+
+Personal portfolio site for Vijay Kumar, Full-Stack & AI Engineer. Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4.
+
+```bash
+npm install
+npm run dev     # http://localhost:3000
+npm run build
+npm run lint
+npm run typecheck
+npm test            # unit tests (Vitest)
+npm run test:e2e    # browser tests (Playwright), after npm run build
+```
+
+- What still needs Vijay's input is listed in `PORTFOLIO_INTAKE.md`.
+
+- Content lives in `src/data/`. Edit the facts there, not in components.
+- Put the resume at `public/Vijay_Kumar.pdf`.
+- Set `NEXT_PUBLIC_SITE_URL` in Vercel once the domain is live.
+- The full build plan is in `Portfolio_Plan_Vijay_Kumar.md`.

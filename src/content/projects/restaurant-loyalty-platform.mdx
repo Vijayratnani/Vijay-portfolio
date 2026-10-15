@@ -1,0 +1,52 @@
+import { Draft, Pending, Pipeline } from "@/components/case-study";
+
+## Context
+
+<Pending>Where and when this was built, team size, and Vijay's role.</Pending>
+
+## The problem
+
+Multi-branch restaurants need **orders and reservations to stay in sync live** across branches, and staff need **access separated by role**.
+
+<Draft title="Constraints">
+  Branch count, offline or poor-connectivity needs, device types, and anything else that shaped the design.
+</Draft>
+
+## Architecture
+
+<Pipeline
+  steps={[
+    { name: "Mobile app", detail: "React Native · Expo" },
+    { name: "API", detail: "Node.js · Express" },
+    { name: "Real-time", detail: "Socket.IO" },
+    { name: "Storage", detail: "SQLite" },
+  ]}
+/>
+
+- **Bilingual** loyalty and restaurant-operations platform.
+- **Real-time orders, reservations, and customer engagement.**
+- **Role-based access** for three tiers of staff: cashiers, branch managers, and super-administrators.
+
+<Pending>Which two languages? What can each role do (a permission matrix)? Add phone mockups in both languages.</Pending>
+
+<Draft title="Key decisions">
+  Two or three trade-offs, each with the option that was rejected, e.g. why Socket.IO, why SQLite, why Expo.
+</Draft>
+
+<Draft title="Challenges & fixes">
+  The hardest problem, e.g. keeping orders consistent across branches in real time, and how it was solved.
+</Draft>
+
+## How it was tested
+
+**Automated test suites** cover the mobile app, the web app, and the backend.
+
+<Pending>What the suites cover and whether they run in CI.</Pending>
+
+<Draft title="Results">
+  Measurable outcomes: branches onboarded, orders handled, time saved, and so on.
+</Draft>
+
+<Draft title="What I'd do next">
+  One or two concrete next steps.
+</Draft>
