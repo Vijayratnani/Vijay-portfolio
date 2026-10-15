@@ -310,7 +310,7 @@ export default function Home() {
 
         <Section id="contact" title="Contact">
           <p data-reveal className="mb-6 max-w-xl font-serif text-4xl leading-tight text-balance">
-            Open to Full-Stack and AI engineering roles: on-site, hybrid, or remote.
+            Open to voice AI, LLM and backend engineering roles: on-site, hybrid, or remote.
           </p>
           <div className="flex flex-wrap gap-3">
             <a href={`mailto:${profile.email}`} className={primary}>

@@ -1,6 +1,6 @@
 # Vijay Kumar — Portfolio
 
-Personal portfolio site for Vijay Kumar, Full-Stack & AI Engineer. Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4.
+Personal portfolio site for Vijay Kumar, Voice AI & Backend Engineer. Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4.
 
 ```bash
 npm install

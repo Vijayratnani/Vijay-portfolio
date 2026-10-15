@@ -3,10 +3,11 @@
 
 export const profile = {
   name: "Vijay Kumar",
-  title: "Full-Stack & AI Engineer",
+  // Positioning title (user-chosen, Oct 2026). Past job titles stay as they were in experience.ts.
+  title: "Voice AI & Backend Engineer",
   location: "Karachi, Pakistan",
   headline:
-    "Full-Stack & AI Engineer building real-time voice AI, LLM/RAG pipelines, and secure production backends.",
+    "I build real-time voice agents, speech and LLM/RAG pipelines, and secure backends for regulated industries.",
   subline: "Fast, secure, and actually tested — not just demoed.",
   currentRole: "Software Engineer II @ eDimensionz",
   availability: "Open to work · On-site · Hybrid · Remote",
@@ -20,7 +21,7 @@ export const profile = {
 
 // From the LinkedIn About (plan §5.3), lightly trimmed. Supports **bold** via <Rich>.
 export const about = [
-  "Full-Stack & AI Engineer based in Karachi, currently building AI-powered applications at **eDimensionz**: LLM integrations, RAG pipelines, and full-stack platforms, end to end.",
+  "Voice AI and backend engineer based in Karachi, currently building AI-powered applications at **eDimensionz**: LLM integrations, RAG pipelines, and full-stack platforms, end to end.",
   "Previously at **VirtuoSoft**, I went from intern to Full-Stack & AI Engineer in about a year. I architected an AI call-analytics platform and built a real-time voice agent, **cutting response latency from ~2s to under 600ms** and **pushing speaker-diarization accuracy to ~95%**.",
   "Day to day I work with FastAPI, Node.js, Next.js, React/React Native, PostgreSQL, and LLM tooling (OpenAI, Ollama, Whisper, RAG, vector databases), with a focus on making things fast, secure, and actually tested, not just demoed.",
 ];
